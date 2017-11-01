@@ -3,7 +3,7 @@
 import { expect } from 'chai';
 import { Map, fromJS } from 'immutable';
 
-import { setEntries, next } from '../src/core';
+import { setEntries, next, vote } from '../src/core';
 
 describe('application logic', () => {
   describe('setEntries', () => {
@@ -40,6 +40,28 @@ describe('application logic', () => {
           pair: ['Trainspotting', '28 Days Later'],
         },
         entries: ['Sunshine'],
+      }));
+    });
+  });
+
+  describe('vote', () => {
+    it('creates a tally for the voted entry', () => {
+      const state = fromJS({
+        vote: {
+          pair: ['Trainspotting', '28 Days Later'],
+        },
+        entries: [],
+      });
+      const nextState = vote(state, 'Trainspotting');
+
+      expect(nextState).to.equal(fromJS({
+        vote: {
+          pair: ['Trainspotting', '28 Days Later'],
+          tally: {
+            Trainsportting: 1,
+          },
+        },
+        entries: [],
       }));
     });
   });

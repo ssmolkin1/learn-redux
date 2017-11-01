@@ -1,4 +1,4 @@
-import { fromJS, Map } from 'immutable';
+import { fromJS } from 'immutable';
 
 export function setEntries(state, entries) {
   return state.set('entries', fromJS(entries));
